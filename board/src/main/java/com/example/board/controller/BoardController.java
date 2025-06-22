@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.board.dto.BoardDto;
@@ -40,5 +41,17 @@ public class BoardController {
 		boardService.insertBoard(boardDto);
 		return "redirect:/board/openBoardList.do";
 	}
+	
+	// 상세 조회 요청을 처리하는 메서드
+	@GetMapping("/board/openBoardDetail.do")
+	public ModelAndView openboardDetail(@RequestParam("boardIdx") int boardIdx) throws Exception {
+		BoardDto boardDto = boardService.selectBoardDetail(boardIdx);
+		
+		ModelAndView mv = new ModelAndView("/board/boardDetail");
+		mv.addObject("board", boardDto);
+		
+		return mv;
+	}
+	
 
 }

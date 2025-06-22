@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.board.dto.BoardDto;
 import com.example.board.mapper.BoardMapper;
 
+// @Transactional
 @Service
 public class BoardServiceImpl implements BoardService {
 	
@@ -25,6 +27,14 @@ public class BoardServiceImpl implements BoardService {
 		boardDto.setCreatedId("admin");
 		
 		boardMapper.insertBoard(boardDto);		
+	}
+
+	@Transactional
+	@Override
+	public BoardDto selectBoardDetail(int boardIdx) {
+		boardMapper.updateHitCnt(boardIdx);
+		int i = 10 / 0;
+		return boardMapper.selectBoardDetail(boardIdx);		
 	}
 
 }
